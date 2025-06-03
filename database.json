@@ -540,7 +540,7 @@
       "label": "VIII. The Ritual",
       "slug": "the-ritual",
       "background": "#381d14",
-      "note": "At night, summon all Mecanical Bosses and defeat them simultaneously to get a rare achievement.",
+      "note": "At night, summon all Mechanical Bosses and defeat them simultaneously to get a rare achievement.",
       "items": [
         "🌄 Exploration & adventure",
         {
@@ -669,7 +669,7 @@
         },
         {
           "id": 141,
-          "text": "Farm the {boss Moon Lord}(Moon_Lord) to get powerfull weapons and some [luminite](Luminite) ores by summoning him with a [Celestial Sigil](Celestial_Sigil)"
+          "text": "Farm the {boss Moon Lord}(Moon_Lord) to get powerful weapons and some [luminite](Luminite) ores by summoning him with a [Celestial Sigil](Celestial_Sigil)"
         },
         {
           "id": 142,
