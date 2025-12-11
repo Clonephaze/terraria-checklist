@@ -29,10 +29,14 @@ const Line = ({ pageId, id, text }: LineProps): JSX.Element => {
     <div className={`line ${isChecked ? 'done' : ''}`}>
       <input
         type="checkbox"
-        id={id.toString()}
+        id={`chapter-${pageId}-item-${id}`}
         onChange={handleCheckboxClick}
         checked={isChecked}
+        aria-label="Mark task as complete"
       />
+      <label htmlFor={`chapter-${pageId}-item-${id}`} className="sr-only">
+        Mark as complete
+      </label>
       <span className="text" dangerouslySetInnerHTML={{ __html: markdownToHtml(text) }}></span>
     </div>
   )

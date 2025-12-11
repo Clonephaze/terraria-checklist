@@ -16,6 +16,17 @@
     font-size: 18px;
   }
 
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
   a {
     @include link-block;
 

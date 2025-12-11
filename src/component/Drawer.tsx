@@ -34,6 +34,23 @@ const applyTheme = (theme: Theme): void => {
   }
 }
 
+const SkipToContent = (): JSX.Element => {
+  const handleSkip = (e: React.MouseEvent): void => {
+    e.preventDefault()
+    const mainContent = document.getElementById('main-content')
+    if (mainContent) {
+      mainContent.focus()
+      mainContent.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <a href="#main-content" className="skip-to-content" onClick={handleSkip}>
+      Skip to content
+    </a>
+  )
+}
+
 const Drawer = (): JSX.Element => {
   const data = useDatabase()
   const { openDrawer, setOpenDrawer, setSelectedPage } = useDrawer()
@@ -83,34 +100,39 @@ const Drawer = (): JSX.Element => {
 
   return (
     <>
+      <SkipToContent />
       <div className={`overlay ${openDrawer ? 'show' : ''}`} onClick={handleOverlayClick}></div>
-      <div className={`drawer ${openDrawer ? 'open' : ''}`}>
+      <nav className={`drawer ${openDrawer ? 'open' : ''}`} aria-label="Main navigation">
         <div className="logo">
-          <img src="image/logo/tree.png" />
+          <img src="image/logo/tree.png" alt=''/>
           <div className="logo-text">
             <span>Progression</span>
             <span>Checklist</span>
           </div>
         </div>
         <div className="sections">
-          <a href="index.html" className="home">
-            Home
-          </a>
+          <ul>
+            <li>
+              <a href="index.html" className="home">
+                Home
+              </a>
+            </li>
+          </ul>
           <Sections data={data} />
         </div>
         <div className="danger-zone">
-          <a className="reset" onClick={handleResetClick}>
+          <button className="reset" onClick={handleResetClick} type="button">
             Reset progression
-          </a>
+          </button>
         </div>
 
-        <a className="theme-toggle" onClick={cycleTheme}>
+        <button className="theme-toggle" onClick={cycleTheme} type="button" aria-label={`Theme: ${getThemeLabel()}. Click to change.`}>
           <span className="theme-label">Theme</span>
-          <span className="theme-value">{getThemeIcon()} {getThemeLabel()}</span>
-        </a>
+          <span className="theme-value" aria-hidden="true">{getThemeIcon()} {getThemeLabel()}</span>
+        </button>
 
-        <a className="support-link" href="https://www.buymeacoffee.com/ewauq" target="_blank">
-          <img src="image/icon/bmc-full-logo.svg" />
+        <a className="support-link" href="https://www.buymeacoffee.com/ewauq" target="_blank" rel="noopener noreferrer">
+          <img src="image/icon/bmc-full-logo.svg" alt="Buy me a coffee!"/>
         </a>
 
         <div className="diminished">
@@ -120,18 +142,19 @@ const Drawer = (): JSX.Element => {
         <div className="diminished">Ready for Terraria 1.4.4.9</div>
         <div className="diminished">
           Code by{' '}
-          <a href="https://github.com/ewauq/terraria-checklist" target="_blank">
+          <a href="https://github.com/ewauq/terraria-checklist" target="_blank" rel="noopener noreferrer">
             ewauq
           </a>{' '}
           · Artwork by{' '}
           <a
             href="https://www.deviantart.com/vsewolod/art/Terraria-World-730563825"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Vsewolod
           </a>
         </div>
-      </div>
+      </nav>
     </>
   )
 }

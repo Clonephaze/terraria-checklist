@@ -15,11 +15,11 @@ const ActionBar = (): JSX.Element => {
   }
 
   return (
-    <div className="action-bar">
-      <button className="drawer-toggle" onClick={handleDrawerMenuClick}></button>
+    <header className="action-bar">
+      <button className="drawer-toggle" onClick={handleDrawerMenuClick} aria-label="Open menu" aria-expanded={openDrawer}></button>
       <span className="title">🌳 Progression Checklist ☀️</span>
-      <button className="dark-mode-toggle" onClick={handleDarkModeClick}></button>
-    </div>
+      <button className="dark-mode-toggle" onClick={handleDarkModeClick} aria-hidden="true"></button>
+    </header>
   )
 }
 
