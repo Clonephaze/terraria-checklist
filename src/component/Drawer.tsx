@@ -9,12 +9,23 @@ const LAST_BUILD_DATE = __BUILD_DATE__
 
 type Theme = 'light' | 'dark' | 'system'
 
+/**
+ * Retrieves the user's stored theme preference from localStorage.
+ * Validates the stored value to ensure it's a valid Theme type.
+ * @returns The stored theme if valid ('light', 'dark', or 'system'), otherwise defaults to 'system'
+ */
 const getStoredTheme = (): Theme => {
   const stored = localStorage.getItem('theme')
   if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
   return 'system'
 }
 
+/**
+ * Applies the specified theme to the document by setting or removing the data-theme attribute.
+ * - 'system': Removes data-theme attribute, allowing CSS to use prefers-color-scheme media query
+ * - 'light'/'dark': Sets data-theme attribute, which overrides system preference via CSS specificity
+ * @param theme - The theme to apply ('light', 'dark', or 'system')
+ */
 const applyTheme = (theme: Theme): void => {
   if (theme === 'system') {
     document.documentElement.removeAttribute('data-theme')
