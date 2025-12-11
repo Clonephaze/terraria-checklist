@@ -4,9 +4,9 @@
   margin-right: -$drawer-width-mobile;
   min-width: $drawer-width-mobile;
 
-  background-color: white;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.05);
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  box-shadow: 4px 0px 4px 0px var(--shadow-color);
 
   z-index: 9;
   padding-bottom: $gap-large;
@@ -40,7 +40,7 @@
 
   .logo {
     display: none;
-    border-bottom: 1px solid $color-gray-light;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 20px;
     margin-bottom: 20px;
     gap: $gap-small;
@@ -115,16 +115,44 @@
     }
   }
 
+  a.theme-toggle {
+    @include link-block;
+    justify-content: space-between;
+    margin: 0 $gap-large $gap-large $gap-large;
+    padding: $gap-small $gap-medium;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    .theme-label {
+      opacity: 0.7;
+    }
+
+    .theme-value {
+      background-color: var(--hover-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: $small-font-size;
+    }
+
+    &:hover {
+      background-color: var(--hover-bg);
+      
+      .theme-value {
+        background-color: var(--border-color);
+      }
+    }
+  }
+
   .diminished {
     margin: 0 $gap-large;
-    color: $color-black-coal-light;
+    color: var(--text-secondary);
     font-size: 13px;
   }
 }
 
 .overlay {
   display: none;
-  background-color: $color-black-coal-light;
+  background-color: var(--text-secondary);
   z-index: 8;
   position: fixed;
   top: 0;
@@ -136,6 +164,17 @@
     display: block;
     @include desktop {
       display: none;
+    }
+  }
+}
+
+// Dark mode background for "buy me a coffee" button
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .drawer .support-link {
+    background-color: #ffdd00;
+
+    &:hover {
+      background-color: #e6c800;
     }
   }
 }

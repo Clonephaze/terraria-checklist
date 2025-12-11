@@ -25,6 +25,118 @@ $color-green: rgb(126, 196, 136);
 $color-red: rgb(198, 58, 58);
 $color-red-light: rgb(255, 233, 233);
 
+// ============================================
+// Light/Dark Mode CSS Custom Properties
+// ============================================
+
+// Light theme colors
+$light-bg-primary: #ffffff;
+$light-bg-secondary: #f5f5f5;
+$light-text-primary: rgba(0, 0, 0, 0.8);
+$light-text-secondary: rgba(0, 0, 0, 0.4);
+$light-border-color: rgba(0, 0, 0, 0.1);
+$light-hover-bg: rgba(0, 0, 0, 0.05);
+$light-shadow: rgba(0, 0, 0, 0.05);
+$light-item-done-bg: #c9ecd8;
+$light-item-done-border: #008000;
+
+// Dark theme colors
+$dark-bg-primary: #1a1a2e;
+$dark-bg-secondary: #16213e;
+$dark-text-primary: rgba(255, 255, 255, 0.9);
+$dark-text-secondary: rgba(255, 255, 255, 0.5);
+$dark-border-color: rgba(255, 255, 255, 0.1);
+$dark-hover-bg: rgba(255, 255, 255, 0.08);
+$dark-shadow: rgba(0, 0, 0, 0.3);
+$dark-item-done-bg: #1e4d2b;
+$dark-item-done-border: #4caf50;
+
+// CSS Custom Properties for runtime theming
+:root {
+  // Fallback for browsers that don't support light-dark()
+  --bg-primary: #{$light-bg-primary};
+  --bg-secondary: #{$light-bg-secondary};
+  --text-primary: #{$light-text-primary};
+  --text-secondary: #{$light-text-secondary};
+  --border-color: #{$light-border-color};
+  --hover-bg: #{$light-hover-bg};
+  --shadow-color: #{$light-shadow};
+  --item-done-bg: #{$light-item-done-bg};
+  --item-done-border: #{$light-item-done-border};
+  --link-color: #{$color-blue-link};
+  --icon-invert: 0;
+
+  // Modern browsers with light-dark() support
+  color-scheme: light dark;
+}
+
+// light-dark() function support (modern browsers)
+@supports (color: light-dark(white, black)) {
+  :root {
+    --bg-primary: light-dark(#{$light-bg-primary}, #{$dark-bg-primary});
+    --bg-secondary: light-dark(#{$light-bg-secondary}, #{$dark-bg-secondary});
+    --text-primary: light-dark(#{$light-text-primary}, #{$dark-text-primary});
+    --text-secondary: light-dark(#{$light-text-secondary}, #{$dark-text-secondary});
+    --border-color: light-dark(#{$light-border-color}, #{$dark-border-color});
+    --hover-bg: light-dark(#{$light-hover-bg}, #{$dark-hover-bg});
+    --shadow-color: light-dark(#{$light-shadow}, #{$dark-shadow});
+    --item-done-bg: light-dark(#{$light-item-done-bg}, #{$dark-item-done-bg});
+    --item-done-border: light-dark(#{$light-item-done-border}, #{$dark-item-done-border});
+    --link-color: light-dark(#{$color-blue-link}, #7ab3ff);
+    --icon-invert: light-dark(0, 0.85);
+  }
+}
+
+// Fallback for browsers without light-dark() support - use media query
+@supports not (color: light-dark(white, black)) {
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #{$dark-bg-primary};
+      --bg-secondary: #{$dark-bg-secondary};
+      --text-primary: #{$dark-text-primary};
+      --text-secondary: #{$dark-text-secondary};
+      --border-color: #{$dark-border-color};
+      --hover-bg: #{$dark-hover-bg};
+      --shadow-color: #{$dark-shadow};
+      --item-done-bg: #{$dark-item-done-bg};
+      --item-done-border: #{$dark-item-done-border};
+      --link-color: #7ab3ff;
+      --icon-invert: 0.85;
+    }
+  }
+}
+
+// Manual theme overrides (takes priority over system preference)
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-primary: #{$light-bg-primary};
+  --bg-secondary: #{$light-bg-secondary};
+  --text-primary: #{$light-text-primary};
+  --text-secondary: #{$light-text-secondary};
+  --border-color: #{$light-border-color};
+  --hover-bg: #{$light-hover-bg};
+  --shadow-color: #{$light-shadow};
+  --item-done-bg: #{$light-item-done-bg};
+  --item-done-border: #{$light-item-done-border};
+  --link-color: #{$color-blue-link};
+  --icon-invert: 0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-primary: #{$dark-bg-primary};
+  --bg-secondary: #{$dark-bg-secondary};
+  --text-primary: #{$dark-text-primary};
+  --text-secondary: #{$dark-text-secondary};
+  --border-color: #{$dark-border-color};
+  --hover-bg: #{$dark-hover-bg};
+  --shadow-color: #{$dark-shadow};
+  --item-done-bg: #{$dark-item-done-bg};
+  --item-done-border: #{$dark-item-done-border};
+  --link-color: #7ab3ff;
+  --icon-invert: 0.85;
+}
+
 @mixin desktop {
   @media only screen and (min-width: 600px) {
     @content;
@@ -32,7 +144,7 @@ $color-red-light: rgb(255, 233, 233);
 }
 
 @mixin link-block {
-  color: $color-black-coal;
+  color: var(--text-primary);
   padding: $gap-small $gap-large;
   display: flex;
   align-items: center;
@@ -40,7 +152,7 @@ $color-red-light: rgb(255, 233, 233);
   cursor: pointer;
 
   &:hover {
-    background-color: $color-gray-light;
+    background-color: var(--hover-bg);
     text-decoration: none;
   }
 }
