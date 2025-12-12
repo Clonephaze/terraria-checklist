@@ -25,19 +25,19 @@ const Line = ({ pageId, id, text }: LineProps): JSX.Element => {
     setIsChecked(localStorage.getItem(localStorageKey) === 'true')
   }, [pageId, id])
 
+  const textId = `chapter-${pageId}-item-${id}-text`
+  const checkboxId = `chapter-${pageId}-item-${id}`
+
   return (
     <div className={`line ${isChecked ? 'done' : ''}`}>
       <input
         type="checkbox"
-        id={`chapter-${pageId}-item-${id}`}
+        id={checkboxId}
         onChange={handleCheckboxClick}
         checked={isChecked}
-        aria-label="Mark task as complete"
+        aria-labelledby={textId}
       />
-      <label htmlFor={`chapter-${pageId}-item-${id}`} className="sr-only">
-        Mark as complete
-      </label>
-      <span className="text" dangerouslySetInnerHTML={{ __html: markdownToHtml(text) }}></span>
+      <span id={textId} className="text" dangerouslySetInnerHTML={{ __html: markdownToHtml(text) }}></span>
     </div>
   )
 }
